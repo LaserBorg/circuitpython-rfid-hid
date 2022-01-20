@@ -10,6 +10,9 @@ Hardware:
 <small>RFID reader for [MFRC522](http://www.nxp.com/documents/data_sheet/MFRC522.pdf) is based on CircuitPython Class of [domdfcoding/circuitpython-mfrc522](https://github.com/domdfcoding/circuitpython-mfrc522),
 which is a port from MicroPython [wendlers/micropython-mfrc522](https://github.com/wendlers/micropython-mfrc522)
 
+USB-HID utilizes [CicuitPython HID library](https://github.com/adafruit/Adafruit_CircuitPython_HID)
+which can emulate Keyboard and Mouse as described [here](https://learn.adafruit.com/circuitpython-essentials/circuitpython-hid-keyboard-and-mouse) or [here](https://blog.thestaticturtle.fr/getting-started-with-hid-and-the-pi-pico/).
+
 
 ## Usage
 

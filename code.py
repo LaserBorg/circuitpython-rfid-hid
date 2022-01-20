@@ -7,11 +7,14 @@ import board
 import mfrc522
 import time
 import json
+import usb_hid
+from adafruit_hid.keyboard import Keyboard
+from adafruit_hid.keyboard_layout_us import KeyboardLayoutUS
 
 
 # lookups
 tag_types = {0: "nothing",
-             16:"MIFARE Classic 1K"}
+             16: "MIFARE Classic 1K"}
 
 # define pins for MFRC522
 sck = board.GP6
@@ -35,15 +38,20 @@ testdata = b"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
 rdr = mfrc522.MFRC522(sck, mosi, miso, rst, cs, delay=int(delay*1000))
 rdr.set_antenna_gain(0x07 << 4)
 
+
 # # READ JSON
 # known_tags = {"0x4348b603": "WHITE CARD", "0x09a929b3": "BLUE TOKEN"}
 with open('known_tags.json', 'r') as file:
     known_tags = json.load(file)
 
-
 # # TODO: WRITE JSON (or 'a' for APPEND)
 # with open('known_tags.json', 'w') as file:
 #     json.dump(known_tags, file)
+
+
+# initialize Keyboard
+kbd = Keyboard(usb_hid.devices)
+keyboard = KeyboardLayoutUS(kbd)
 
 
 def process_rfid(write=False, adress=8, data=None):
@@ -103,6 +111,7 @@ if __name__ == "__main__":
             if uid != prev_uid and notfound >= notfound_limit:
                 prev_uid = notfound = 0
                 print("leave")
+                keyboard.write("leave" + "\n")
                 
             elif notfound >= notfound_limit:
                 # NO CARD FOUND
@@ -115,6 +124,7 @@ if __name__ == "__main__":
             if prev_uid == 0:
                 # CARD APPEARED
                 print(f"{known_tags[uid]} appeared")
+                keyboard.write(known_tags[uid] + "\n")
             
             elif prev_uid == uid:
                 # CARD STILL THERE
