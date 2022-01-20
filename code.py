@@ -30,8 +30,8 @@ delay = 0.1
 notfound_limit = 3
 
 
-# TODO: try writing with process_rfid(write=True, adress=8, data=testdata)
-testdata = b"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
+# # TODO: try writing with process_rfid(write=True, adress=8, data=testdata)
+# testdata = b"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
 
 
 # initialize mfrc522 with pins and delay and set antenna to maximum gain
@@ -123,8 +123,9 @@ if __name__ == "__main__":
         else:
             if prev_uid == 0:
                 # CARD APPEARED
-                print(f"{known_tags[uid]} appeared")
-                keyboard.write(known_tags[uid] + "\n")
+                text = known_tags[uid] if uid in known_tags else uid
+                print(f"{text} appeared")
+                keyboard.write(text + "\n")
             
             elif prev_uid == uid:
                 # CARD STILL THERE
