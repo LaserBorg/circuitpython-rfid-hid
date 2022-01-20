@@ -1,41 +1,30 @@
-# circuitpython-mfrc522
-CircuitPython class to access the MFRC522 RFID reader
+# circuitpython-rfid-hid
+convert RFID Tag Data into keystrokes by emulating a USB Keyboard on a Pi Pico.
 
-<small>Based on the [wendlers/micropython-mfrc522](https://github.com/wendlers/micropython-mfrc522) MicroPython library.
+Hardware: 
+- Raspberry Pi Pico (RP2040) with CircuitPython 7.x
+- MFRC522-based RFID reader using SPI
+- Mifare Classic 1k Tags (not sure if MFRC522 also supports different Standards..)
 
-Basic class to access RFID readers of the type [MFRC522](http://www.nxp.com/documents/data_sheet/MFRC522.pdf).
-This is basically a re-write of [this](https://github.com/mxgxw/MFRC522-python) Python port for the MFRC522. I
-tried to strip things down and make them more "pythonic" so the result is small enough to run on
-[CircuitPython](https://github.com/adafruit/circuitpython) boards.
+
+<small>RFID reader for [MFRC522](http://www.nxp.com/documents/data_sheet/MFRC522.pdf) is based on CircuitPython Class of [domdfcoding/circuitpython-mfrc522](https://github.com/domdfcoding/circuitpython-mfrc522),
+which is a port from MicroPython [wendlers/micropython-mfrc522](https://github.com/wendlers/micropython-mfrc522)
+
 
 ## Usage
 
-Put the modules ``mfrc522.py``, ``examples/read.py``, ``examples/write.py`` to the root of the flash FS on your board.
+Copy ``code.py``, ``boot.py``, ``known_tags.json`` and the ``lib/`` directory with all it's content (``mfrc.py`` class and ``adafruit_bus_device/`` libraries) to the root of Pico's File System.
 
-I used the following pins for my setup:
+Pins:
 
-| Signal    | GPIO ESP8266 | GPIO WiPy      | Note                                 |
-| --------- | ------------ | -------------- | ------------------------------------ |
-| sck       | 0            | "GP14"         |                                      |
-| mosi      | 2            | "GP16"         |                                      |
-| miso      | 4            | "GP15"         |                                      |
-| rst       | 5            | "GP22"         |                                      |
-| cs        | 14           | "GP14"         |Labeled SDA on most RFID-RC522 boards |
+| MFRC522 | Pico GPIO |
+|---------|-----------|
+| sck     | GP06      |
+| mosi    | GP07      |
+| miso    | GP04      |
+| rst     | GP18      |
+| cs/sda  | GP05      |
 
-Now enter the REPL you could run one of the two examples:
 
-For detecting, authenticating and reading from a card:
-
-    import read
-    read.do_read()
-
-This will wait for a MifareClassic 1k card. As soon the card is detected, it is authenticated, and
-16 bytes are read from address 0x08.
-
-For detecting, authenticating and writing to a card:
-
-    import write
-    write.do_write()
-
-This will wait for a MifareClassic 1k card. As soon the card is detected, it is authenticated, and
-16 bytes written to address 0x08.
+Write Access is enabled by grounding another Pin (-> GP02 to mass) which sets the USB-filesystem to *read-only* at boot time, which allows Pico to write to it's own memory. 
+This is handled by ``boot.py`` as described [here](https://learn.adafruit.com/circuitpython-essentials/circuitpython-storage).
