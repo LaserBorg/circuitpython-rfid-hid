@@ -26,7 +26,7 @@ RFID Class for [MFRC522](http://www.nxp.com/documents/data_sheet/MFRC522.pdf) is
 | rst       | GP18      |
 | cs/sda    | GP05      |
 
-###Write Access to Pico's internal memory
+### Write Access to Pico's internal memory
 Write Access for Pico is enabled by grounding Pin GP02 to mass. This sets the USB-filesystem to *read-only*, allowing Pico to write to it's own memory. 
 Handled by ``boot.py`` at boot time as described [here](https://learn.adafruit.com/circuitpython-essentials/circuitpython-storage).
 
@@ -41,7 +41,7 @@ and wired like this:
 ![APA106 RGB LED](doc/WS2811_5mm.jpg)
 <br>[image source](https://www.espruino.com/WS2811)
 
-###USB HID (Keyboard Emulation)
+### USB HID (Keyboard Emulation)
 USB-HID utilizes [CircuitPython HID library](https://github.com/adafruit/Adafruit_CircuitPython_HID)
 which can emulate Keyboard and Mouse as described [here](https://learn.adafruit.com/circuitpython-essentials/circuitpython-hid-keyboard-and-mouse) or [here](https://blog.thestaticturtle.fr/getting-started-with-hid-and-the-pi-pico/).
 
