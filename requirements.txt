@@ -1,1 +1,3 @@
 adafruit_bus_device
+adafruit_hid
+neopixel
