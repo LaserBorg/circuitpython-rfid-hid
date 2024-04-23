@@ -1,7 +1,7 @@
-import busio
-import digitalio
-from adafruit_bus_device.spi_device import SPIDevice
-from microcontroller import Pin
+import busio                                            # type: ignore
+import digitalio                                        # type: ignore
+from adafruit_bus_device.spi_device import SPIDevice    # type: ignore
+from microcontroller import Pin                         # type: ignore
 
 
 class MFRC522:

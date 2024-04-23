@@ -6,24 +6,24 @@ convert RFID Tag Data into keystrokes by emulating a USB Keyboard on a Pi Pico, 
 This Project could easily be used to build a Sound Toy that works similar to the popular Toniebox®.
 
 ## Hardware: 
-- Raspberry Pi Pico (RP2040) with CircuitPython 7.x
+- Raspberry Pi Pico (RP2040) with CircuitPython 9.x
 - MFRC522-based RFID reader using SPI
-- Mifare Classic 1k Tags (not sure if MFRC522 also supports different Standards..)
-- optional LED: APA106 (WS2811) or any other NeoPixel (WS2812)
-
-
+- Mifare Classic 1k Tags
+- optional LED: NeoPixel (WS2812) or APA106 (WS2811)
 
 
 ### RFID (MFRC522 Module)
 RFID Class for [MFRC522](http://www.nxp.com/documents/data_sheet/MFRC522.pdf) is based on [domdfcoding/circuitpython-mfrc522](https://github.com/domdfcoding/circuitpython-mfrc522) (CircuitPython port),
 <br>forked from [wendlers/micropython-mfrc522](https://github.com/wendlers/micropython-mfrc522) (MicroPython port).
 
+![img](https://microcontrollerslab.com/wp-content/uploads/2020/01/RC522-RFID-CARD-READERS-Pinout.png) [source](https://microcontrollerslab.com/rc522-rfid-reader-pinout-arduino-interfacing-examples-features/)
+
 | MFRC522   | Pico GPIO |
 |-----------|-----------|
 | sck       | GP06      |
 | mosi      | GP07      |
 | miso      | GP04      |
-| rst       | GP18      |
+| rst       | GP08      |
 | cs/sda    | GP05      |
 
 ### Write Access to Pico's internal memory
@@ -33,7 +33,7 @@ Handled by ``boot.py`` at boot time as described [here](https://learn.adafruit.c
 | extra pins     | Pico GPIO |
 |----------------|-----------|
 | NeoPixel (PWM) | GP00      |
- | write Access   | GP02      |
+| write Access   | GP02      |
 
 ### NeoPixel LED
 APA106 LED  is driven by [Adafruit CircuitPython library](https://github.com/adafruit/Adafruit_CircuitPython_NeoPixel) as described [here](https://learn.adafruit.com/getting-started-with-raspberry-pi-pico-circuitpython/neopixel-leds)
